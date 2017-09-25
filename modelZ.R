@@ -4,6 +4,11 @@ file3 <- read.csv("~/Desktop/Kitwai_Analyse/logs_week4/worker3.csv")
 file1$INSTANCE <- 1
 file2$INSTANCE <- 2
 file3$INSTANCE <- 3
+for(i in 1:25){
+  file1 <- rbind(file1,c(0,0,0,max(file1$FREE_B),0,max(file1$FREE_M),1))
+  file2 <- rbind(file2,c(0,0,0,max(file2$FREE_B),0,max(file2$FREE_M),2))
+  file3 <- rbind(file3,c(0,0,0,max(file3$FREE_B),0,max(file3$FREE_M),3))
+}
 file <- rbind(file1,file2)
 file <- rbind(file,file3)
 df <- as.data.frame(file)
@@ -12,7 +17,7 @@ df$USED_B <- df$USED_B/1000
 df$FREE_B <- df$FREE_B/1000
 df$USED_M <- df$USED_M/1000
 df$FREE_M <- df$FREE_M/1000
-modely <- lm(SIZE~USED_B+USED_M,data=df)
+modely <- lm(SIZE~+USED_B+USED_M,data=df)
 model <- lm(TIME~SIZE+INSTANCE,data=df)
 ############################
 df_1_0.5 <- subset(file1,file1$SIZE==0.5)
